@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{% if feedback %}Edit Feedback{% else %}Add Feedback{% endif %}</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            {{ form.title(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            {{ form.content(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+    <!-- Button to go back to user profile -->
+    <a href="{{ url_for('user_profile', username=username) }}" class="btn btn-secondary">Back to Profile</a>
+{% endblock %}
+

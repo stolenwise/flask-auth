@@ -1,6 +1,7 @@
 # models.py
 
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -14,17 +15,21 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
 
+    feedback = db.relationship('Feedback', backref='user', lazy=True)
+
 class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    title = db.Column(db.String(100), nullable=True)  # Add title column
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<Feedback {self.title}>'
 
 # Function to connect to the database
 def connect_db(app):
     db.app = app
     db.init_app(app)
+

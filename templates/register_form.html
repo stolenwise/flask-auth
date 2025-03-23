@@ -5,6 +5,7 @@
 {% block content %}
 <h2>Create a User</h2>
 <form method="POST" action="/register"> 
+    {{ form.hidden_tag() }} <!-- This includes the CSRF token - don't forget this - was very important-->
     <div class="form-group">
         <label for="username">Username</label>
         {{ form.username(class="form-control", id="username") }} 
